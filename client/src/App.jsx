@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
 import RegisterPage from './pages/RegisterPage';
 import { AuthProvider } from './context/AuthContext';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   return (
@@ -8,7 +9,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<h1>Home page</h1>} />
-          <Route path='/login' element={<h1>Login</h1>} />
+          <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/tasks' element={<h1>Tasks page</h1>} />
           <Route path='/add-task' element={<h1>New task</h1>} />

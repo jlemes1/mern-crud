@@ -1,43 +1,29 @@
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../context/useAuth';
-import { useEffect } from 'react';
-import { useNavigate, Link } from 'react-router';
+import { Link } from 'react-router';
 
-function RegisterPage() {
+function LoginPage() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { signUp, isAuthenticated, errors: registerErrors } = useAuth();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isAuthenticated) navigate('/tasks');
-  }, [isAuthenticated, navigate]);
+  const { signIn, errors: signInErrors } = useAuth();
 
-  const onSubmit = handleSubmit(async (values) => {
-    signUp(values);
+  const onSubmit = handleSubmit((data) => {
+    signIn(data);
   });
 
   return (
     <div className='flex items-center justify-center h-screen'>
-      <div className='max-w-md w-full p-10 rounded-md m-4 bg-zinc-800'>
-        {registerErrors.map((error, i) => (
-          <div key={i} className='bg-red-500 text-white p-2'>
+      <div className='max-w-md p-10 w-full rounded-md bg-zinc-800'>
+        {signInErrors.map((error, i) => (
+          <div key={i} className='bg-red-500 text-white text-center my-2 p-2 '>
             {error}
           </div>
         ))}
         <form onSubmit={onSubmit}>
-          <input
-            type='text'
-            {...register('username', { required: true })}
-            className='w-full bg-zinc-600 text-white rounded-md p-2 my-2'
-            placeholder='Username'
-          />
-          {errors.username && (
-            <p className='text-red-500'>Username is required</p>
-          )}
           <input
             type='email'
             {...register('email', { required: true })}
@@ -58,12 +44,12 @@ function RegisterPage() {
             type='submit'
             className='bg-sky-500 rounded-md p-2 my-2 cursor-pointer'
           >
-            Register
+            Login
           </button>
         </form>
         <p className='flex  justify-between'>
-          Already have an account?
-          <Link className='text-sky-500' to='/login'>
+          Don't have an account?
+          <Link className='text-sky-500' to='/register'>
             Sign up
           </Link>
         </p>
@@ -72,4 +58,4 @@ function RegisterPage() {
   );
 }
 
-export default RegisterPage;
+export default LoginPage;
